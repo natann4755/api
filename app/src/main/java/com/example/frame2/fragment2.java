@@ -15,16 +15,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+
 public class fragment2 extends Fragment {
 
     private static final String moovei_bandel_string = "moovei string";
     private Result data;
     private Button bbb;
-
+    private final String pathURL ="https://image.tmdb.org/t/p/w500_and_h282_face/";
     private ImageView imageView1;
     private ImageView imageView2;
     private TextView titel;
     private TextView ttext;
+    private List<ResultsItem> myResponses;
 
 
     public static fragment2 newIntent (Result data){
@@ -39,6 +47,18 @@ public class fragment2 extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         data = getArguments().getParcelable(moovei_bandel_string);
+        Call <Response> myCall = TMDBRetrofistRest.myMooveiServich.searchMobiesTrealer(String.valueOf(data.getId()),MainActivity.keyMoovey);
+        myCall.enqueue(new Callback<Response>() {
+            @Override
+            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                myResponses = response.body().getResults();
+            }
+
+            @Override
+            public void onFailure(Call<Response> call, Throwable t) {
+
+            }
+        });
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -65,13 +85,18 @@ public class fragment2 extends Fragment {
         titel.setText(data.getTitle());
         ttext.setText(data.getOverview());
 
-//        bbb.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.getUrl()));
-//                startActivity(intent);
-//            }
-//        });
+        String ImajURL1 = pathURL + data.getPosterPath();
+        String ImajURL2 = pathURL + data.getBackdropPath();
+
+        Picasso.get().load(ImajURL1).into(imageView1);
+        Picasso.get().load(ImajURL2).into(imageView2);
+        bbb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v="+myResponses.get(0).getKey()));
+                startActivity(intent);
+            }
+        });
     }
 
 

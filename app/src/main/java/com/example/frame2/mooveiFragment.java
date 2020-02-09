@@ -26,7 +26,6 @@ public class mooveiFragment extends Fragment implements OnMooveiClickLisener {
     private RecyclerView myRecyclerView;
     private RecyclerView.LayoutManager mylayoutManager;
     private RecyclerView.Adapter myAdapter;
-    static int corectPosishen;
     static final String key = "key";
     private ArrayList <Result> myresults = new ArrayList<>();
 
@@ -79,9 +78,8 @@ public class mooveiFragment extends Fragment implements OnMooveiClickLisener {
 
     @Override
     public void OnMooveiClicedb(int ItemPositiom) {
-        corectPosishen = ItemPositiom;
         if (myonMovieFragmentClickListener != null) {
-            myonMovieFragmentClickListener.OnMooveiClicked((myresults.get(ItemPositiom)));
+            myonMovieFragmentClickListener.OnMooveiClicked((myresults.get(ItemPositiom)),ItemPositiom);
         }
     }
 }

@@ -36,7 +36,7 @@
                 android:id="@+id/imeg2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.3"
+                android:layout_weight="0.5"
                 android:src="@drawable/rick_and_morty"
                 android:scaleType="fitXY"
                 ></ImageView>
@@ -65,17 +65,9 @@
                         android:text="titel"
                         android:textColor="#ff1aff"
                         android:textStyle="bold"
-                        android:textSize="35sp"
+                        android:textSize="21sp"
                         android:layout_margin="6dp"></TextView>
 
-                    <TextView
-                        android:id="@+id/textt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="text"
-                        android:textSize="20sp"
-                        android:layout_margin="6dp">
-                    </TextView>
 
                     <Button
                         android:id="@+id/f2_butun"
@@ -91,5 +83,32 @@
         </LinearLayout>
 
 
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="overveiw"
+                android:textStyle="bold"
+                android:textSize="20sp"></TextView>
+            <TextView
+                android:id="@+id/textt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="text"
+                android:textSize="16sp"
+                android:layout_margin="6dp">
+            </TextView>
+
+        </LinearLayout>
+
+
     </LinearLayout>
+
 </LinearLayout>

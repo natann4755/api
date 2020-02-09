@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements OnMovieFragmentCl
 
     private ViewPager tabletframeLayout = null;
     private Toolbar mytoolbar;
-    private static final String keyMoovey = "566b08e0f0f5d9d9ba6089a67537433c";
+     static final String keyMoovey = "566b08e0f0f5d9d9ba6089a67537433c";
     private List<Result> mylist;
 
     @Override
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements OnMovieFragmentCl
     }
 
     @Override
-    public void OnMooveiClicked(Result moovei) {
+    public void OnMooveiClicked(Result moovei , int pozishen) {
         fragment2 f2 = fragment2.newIntent(moovei);
         if (tabletframeLayout == null) {
             getSupportFragmentManager()
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements OnMovieFragmentCl
                     .replace(R.id.AM_FrameLayout, f2).commit();
         } else {
 //            mPager.setCurrentItem(2, true);
-            tabletframeLayout.setCurrentItem(mooveiFragment.corectPosishen);
+            tabletframeLayout.setCurrentItem(pozishen);
 //                    .layoutManager.scrollToPosition(x)
 //            getSupportFragmentManager()
 //                    .beginTransaction()

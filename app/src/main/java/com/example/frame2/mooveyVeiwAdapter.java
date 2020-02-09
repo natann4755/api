@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class mooveyVeiwAdapter extends RecyclerView.Adapter <mooveyVeiwAdapter.VeiwHolder> {
@@ -50,6 +52,7 @@ public class mooveyVeiwAdapter extends RecyclerView.Adapter <mooveyVeiwAdapter.V
 
     public class VeiwHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        private final String pathURL ="https://image.tmdb.org/t/p/w500_and_h282_face/";
         public ImageView imeg;
         public TextView titel;
         public TextView text;
@@ -68,6 +71,12 @@ public class mooveyVeiwAdapter extends RecyclerView.Adapter <mooveyVeiwAdapter.V
 //            imeg.setImageResource(moovei.getImeg());
             titel.setText(moovei.getTitle());
             text.setText(moovei.getOverview());
+            String imejURL = pathURL+moovei.getPosterPath();
+            Picasso
+                    .get()
+                    .load(imejURL)
+                    .error(R.drawable.cars)
+                    .into(imeg);
         }
 
 
