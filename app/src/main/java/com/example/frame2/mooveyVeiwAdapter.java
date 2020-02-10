@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,7 +21,7 @@ public class mooveyVeiwAdapter extends RecyclerView.Adapter <mooveyVeiwAdapter.V
 
     private OnMooveiClickLisener MyonMooveiClickLisener;
     private LayoutInflater inflater;
-    private ArrayList<Result> mydata = new ArrayList<>();
+    private ArrayList<Result> mydata;
 
     @NonNull
     @Override
@@ -56,6 +57,7 @@ public class mooveyVeiwAdapter extends RecyclerView.Adapter <mooveyVeiwAdapter.V
         public ImageView imeg;
         public TextView titel;
         public TextView text;
+        public ProgressBar myProgressBar;
 
         public VeiwHolder(@NonNull View view) {
             super(view);
@@ -65,6 +67,7 @@ public class mooveyVeiwAdapter extends RecyclerView.Adapter <mooveyVeiwAdapter.V
             imeg = view.findViewById(R.id.ImageView);
             titel = view.findViewById(R.id.TextViewTitel);
             text = view.findViewById(R.id.TextViewText);
+            myProgressBar = view.findViewById(R.id.item_progres);
         }
 
         public void onbindSet (Result moovei){
@@ -75,7 +78,6 @@ public class mooveyVeiwAdapter extends RecyclerView.Adapter <mooveyVeiwAdapter.V
             Picasso
                     .get()
                     .load(imejURL)
-                    .error(R.drawable.cars)
                     .into(imeg);
         }
 
@@ -84,7 +86,6 @@ public class mooveyVeiwAdapter extends RecyclerView.Adapter <mooveyVeiwAdapter.V
         public void onClick(View v) {
             if (MyonMooveiClickLisener == null) return;
             MyonMooveiClickLisener.OnMooveiClicedb(getAdapterPosition());
-
         }
     }
 }

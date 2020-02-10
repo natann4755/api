@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class mooveiFragment extends Fragment implements OnMooveiClickLisener {
 
     public OnMovieFragmentClickListener myonMovieFragmentClickListener ;
@@ -27,7 +32,10 @@ public class mooveiFragment extends Fragment implements OnMooveiClickLisener {
     private RecyclerView.LayoutManager mylayoutManager;
     private RecyclerView.Adapter myAdapter;
     static final String key = "key";
-    private ArrayList <Result> myresults = new ArrayList<>();
+    private ArrayList <Result> myresults;
+    private  ArrayList <Result> newresults;
+    private Button buttonAddMore;
+    private static int counterPage = 1;
 
     static mooveiFragment newInstant (ArrayList<Result> mylist){
         mooveiFragment myMooveiFragment = new mooveiFragment();
@@ -63,6 +71,16 @@ public class mooveiFragment extends Fragment implements OnMooveiClickLisener {
 
         intimyRecyclerView();
 
+        buttonAddMore = vveiw.findViewById(R.id.frem1_botton);
+        buttonAddMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                counterPage++;
+
+                addMooveus(counterPage);
+            }
+        });
+
 
         return vveiw;
     }
@@ -81,5 +99,30 @@ public class mooveiFragment extends Fragment implements OnMooveiClickLisener {
         if (myonMovieFragmentClickListener != null) {
             myonMovieFragmentClickListener.OnMooveiClicked((myresults.get(ItemPositiom)),ItemPositiom);
         }
+    }
+
+    private void addMooveus(int page){
+
+        Call<ImegeSearchResult> myCall = TMDBRetrofistRest.myMooveiServich.searchMobiesByPepuler(MainActivity.keyMoovey,page);
+        myCall.enqueue(new Callback<ImegeSearchResult>() {
+            @Override
+            public void onResponse(Call<ImegeSearchResult> call, Response<ImegeSearchResult> response) {
+                if (response.isSuccessful()){
+                    newresults = (ArrayList) response.body().getResults();
+                    newresults.addAll(myresults);
+                    updateData(newresults);
+                }
+            }
+
+            private void updateData(ArrayList <Result> myNewList) {
+                myresults.clear();
+                myresults.addAll(myNewList);
+                myAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<ImegeSearchResult> call, Throwable t) {
+            }
+        });
     }
 }

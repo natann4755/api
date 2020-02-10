@@ -15,15 +15,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
         <ImageView
             android:id="@+id/imeg1"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:src="@drawable/rabbi_jacob"
             android:scaleType="fitXY"
-            ></ImageView>
+            />
+        <ProgressBar
+            android:id="@+id/frem2_progres"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,14 +42,17 @@
             android:layout_weight="1"
             android:layout_margin="6dp">
 
-            <ImageView
-                android:id="@+id/imeg2"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:src="@drawable/rick_and_morty"
+                android:layout_weight="0.5">
+            <ImageView
+                android:id="@+id/imeg2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                ></ImageView>
+                />
+            </LinearLayout>
 
 
             <LinearLayout
@@ -112,3 +125,8 @@
     </LinearLayout>
 
 </LinearLayout>
+
+
+
+
+

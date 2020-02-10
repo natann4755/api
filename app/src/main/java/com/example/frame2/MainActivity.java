@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements OnMovieFragmentCl
     }
 
     private void loadMoveis(){
-        Call <ImegeSearchResult> myCall = TMDBRetrofistRest.myMooveiServich.searchMobiesByPepuler(keyMoovey);
+        Call <ImegeSearchResult> myCall = TMDBRetrofistRest.myMooveiServich.searchMobiesByPepuler(keyMoovey,1);
         myCall.enqueue(new Callback<ImegeSearchResult>() {
             @Override
             public void onResponse(Call<ImegeSearchResult> call, Response<ImegeSearchResult> response) {
@@ -69,10 +69,8 @@ public class MainActivity extends AppCompatActivity implements OnMovieFragmentCl
 
             @Override
             public void onFailure(Call<ImegeSearchResult> call, Throwable t) {
-
             }
         });
-
     }
 
     @Override

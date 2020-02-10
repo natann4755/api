@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,7 @@ public class fragment2 extends Fragment {
     private TextView titel;
     private TextView ttext;
     private List<ResultsItem> myResponses;
+    private ProgressBar myProgressBar;
 
 
     public static fragment2 newIntent (Result data){
@@ -47,18 +49,6 @@ public class fragment2 extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         data = getArguments().getParcelable(moovei_bandel_string);
-        Call <Response> myCall = TMDBRetrofistRest.myMooveiServich.searchMobiesTrealer(String.valueOf(data.getId()),MainActivity.keyMoovey);
-        myCall.enqueue(new Callback<Response>() {
-            @Override
-            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                myResponses = response.body().getResults();
-            }
-
-            @Override
-            public void onFailure(Call<Response> call, Throwable t) {
-
-            }
-        });
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -76,6 +66,7 @@ public class fragment2 extends Fragment {
         titel = vveiw.findViewById(R.id.titel);
         ttext = vveiw.findViewById(R.id.textt);
         bbb = vveiw.findViewById(R.id.f2_butun);
+        myProgressBar = vveiw.findViewById(R.id.frem2_progres);
 
     }
 
@@ -93,8 +84,25 @@ public class fragment2 extends Fragment {
         bbb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v="+myResponses.get(0).getKey()));
-                startActivity(intent);
+                myProgressBar.setVisibility(View.VISIBLE);
+                Call <Response> myCall = TMDBRetrofistRest.myMooveiServich.searchMobiesTrealer(String.valueOf(data.getId()),MainActivity.keyMoovey);
+                myCall.enqueue(new Callback<Response>() {
+                    @Override
+                    public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                        myResponses = response.body().getResults();
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(
+                                "https://www.youtube.com/watch?v="+myResponses.get(0).getKey()));
+
+                        startActivity(intent);
+                        myProgressBar.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Response> call, Throwable t) {
+
+                    }
+                });
+
             }
         });
     }
